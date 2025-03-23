@@ -25,7 +25,7 @@ This is a web application built with **Angular 19** and **Angular Material Desig
    ```
 2. Navigate to the project directory:
    ```bash
-   cd stock-watchlist-app
+   cd ng-watchlist
    ```
 3. Install dependencies:
    ```bash
