@@ -1,0 +1,14 @@
+<p class="text-lg">Market News</p>
+<mat-list>
+    @for (item of companyNewsList; track $index) {
+    <mat-list-item>
+        <img [src]="item.image || 'favicon.ico'" [alt]="item.headline" matListItemIcon>
+        <span class="wrap">
+            <a [href]="item.url" target="_blank" matButton>
+                {{item.headline}}
+            </a>
+        </span>
+    </mat-list-item>
+    }
+
+</mat-list>

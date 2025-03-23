@@ -1,0 +1,10 @@
+<div class="flex flex-col items-center p-8 border-b-1 border-gray-400">
+    <img src="man-with-hat.png" alt="Anik Sau" class="rounded-xl border-b-4 border-gray-400" width="80">
+    <p class="text-lg mt-4">Hi, I am Anik Sau.</p>
+</div>
+<button mat-menu-item mat-icon-button (click)="onPhoneClick()">
+    <span class="flex justify-start items-center">
+        <mat-icon>phone</mat-icon> {{phone}}
+    </span>
+</button>
+<button mat-menu-item mat-icon-button (click)="onEmailClick()"><mat-icon>email</mat-icon> {{email}}</button>

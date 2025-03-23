@@ -1,0 +1,34 @@
+@defer {
+
+@if (watchListItems.length ) {
+
+<mat-list role="list">
+    @for (item of watchListItems; track item?.symbol) {
+    <mat-divider></mat-divider>
+    <mat-list-item role="link" (click)="onSymbolClick(item)" class="watch-list-item">
+        <div class="flex justify-between">
+            <div class="flex items-center">
+                <mat-chip class="mr-4  watch-list-item-chip"><span class="text-xs">{{item.symbol}}</span></mat-chip>
+                <span class="text-sm font-medium">{{item.description}}</span>
+            </div>
+
+            <div class="flex">
+                <span>{{item?.close}}</span>
+                <button mat-icon-button color="warn" (click)="onDeleteSymbol(item)">
+                    <mat-icon>delete_outline</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-list-item>
+    }
+</mat-list>
+} @else {
+<h1 class="flex items-center text-6xl text-gray-800">Hello
+    <img src="hand-symbol-of-peace.png" alt="Hello" width="56" class="ml-4">
+</h1>
+<h2 class="text-4xl mt-10 text-gray-500">Search by Company name or symbol to start watching.</h2>
+}
+
+} @placeholder (minimum 1.5s) {
+<ngx-skeleton-loader [count]="watchListItems.length || 5" />
+}

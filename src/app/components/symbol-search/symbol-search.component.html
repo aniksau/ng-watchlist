@@ -1,0 +1,16 @@
+<form>
+  <mat-form-field class="w-full" subscriptSizing="dynamic" appearance="outline">
+    <input type="text" placeholder="Company name or symbol" aria-label="Company name or symbol" matInput
+      [formControl]="symbolInput" [matAutocomplete]="auto">
+    <mat-icon matSuffix>search</mat-icon>
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="getOptionText"
+      (optionSelected)="onOptionSelect($event.option.value)">
+      @for (option of suggestionList; track option) {
+      <mat-option [value]="option">
+        <div>{{option?.symbol}}</div>
+        <div class="text-sm">{{option?.description}}</div>
+      </mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

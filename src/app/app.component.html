@@ -1,0 +1,24 @@
+<mat-toolbar class="app-header-bar">
+  <div class="container md:container sm:container sm:mx-auto">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <img src="logo.svg" alt="" width="40" class="mr-2">
+        <span class="mr-auto font-sans font-bold text-lg"> WATCHLIST</span>
+      </div>
+
+      <app-symbol-search class="basis-1/2 mx-auto"></app-symbol-search>
+      <!-- <span class="ml-auto">Anik</span> -->
+      <button mat-button class="ml-auto" [matMenuTriggerFor]="contactMenu">
+        <mat-icon>contact_support</mat-icon> Contact</button>
+
+    </div>
+
+  </div>
+</mat-toolbar>
+<div class="container md:container sm:container sm:mx-auto py-8">
+  <router-outlet></router-outlet>
+</div>
+
+<mat-menu #contactMenu="matMenu">
+  <app-about></app-about>
+</mat-menu>

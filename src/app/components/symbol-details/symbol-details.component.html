@@ -1,0 +1,73 @@
+@if (selectedSymbol) {
+<mat-card appearance="raised">
+    @if (isQuotesLoaded && isCompanyProfileLoaded) {
+    <mat-card-header>
+        <img [src]="companyProfile.logo" [alt]="companyProfile.ticker || ''" mat-card-avatar>
+        <mat-card-title>
+            {{companyProfile.name}}
+        </mat-card-title>
+        <mat-card-subtitle>{{companyProfile.ticker}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="flex py-8">
+            <div class="basis-1/2">
+                <p class="text-4xl">
+                    {{symbolQuote.c}}
+                    <span class="text-base text-gray-500">{{companyProfile.currency}}</span>
+                </p>
+                <p *ngIf="symbolQuote"
+                    [ngClass]="{'text-green-600': symbolQuote.dp > 0, 'text-red-600': symbolQuote.dp < 0}"
+                    class="flex align-center">
+                    <span class="mr-1">
+                        {{symbolQuote.dp | number: '.1-2'}}%
+
+                    </span>
+
+                    @if (symbolQuote.dp > 0) {
+                    <mat-icon>trending_up</mat-icon>
+                    }
+                    @else {
+                    <mat-icon>trending_down</mat-icon>
+                    }
+                </p>
+
+                <mat-list>
+                    <mat-list-item>
+                        <span matListItemTitle>Open</span>
+                        <span matListItemLine>{{symbolQuote.o | number: '.1-2' | currency:
+                            companyProfile.currency}}</span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>High</span>
+                        <span matListItemLine>{{symbolQuote.h | number: '.1-2' | currency:
+                            companyProfile.currency}}</span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>Low</span>
+                        <span matListItemLine>{{symbolQuote.l | number: '.1-2' | currency:
+                            companyProfile.currency}}</span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span matListItemTitle>Previous Close</span>
+                        <span matListItemLine>{{symbolQuote.pc | number: '.1-2' | currency:
+                            companyProfile.currency}}</span>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="w-md max-h-80 overflow-y-auto">
+                <app-symbol-news [symbol]="selectedSymbol"></app-symbol-news>
+            </div>
+        </div>
+
+    </mat-card-content>
+    } @else {
+    <div class="p-8">
+        <ngx-skeleton-loader appearance="circle" />
+        <ngx-skeleton-loader count="4" />
+    </div>
+    }
+</mat-card>
+}
+@else {
+<img src="graph.svg" alt="illustration graph" class="px-15">
+}
