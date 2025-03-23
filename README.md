@@ -21,7 +21,7 @@ This is a web application built with **Angular 19** and **Angular Material Desig
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/aniksau/ng-watchlist
+   git clone https://github.com/aniksau/ng-watchlist.git
    ```
 2. Navigate to the project directory:
    ```bash
