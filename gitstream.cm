@@ -1,0 +1,45 @@
+# -*- mode: yaml -*-
+manifest:
+  version: 1.0
+automations:
+  pr-greeting-bot:
+    if:
+      - true
+    run:
+      # We'll do all the logic in a single script step to be efficient.
+      - id: get_greeting_and_time
+        action: run-script@v1
+        args:
+          script: |
+            #!/bin/bash
+            # Get the current hour in 24-hour format (00-23) in UTC.
+            # We use UTC for consistency, regardless of where the PR is from.
+            HOUR=$(date -u +%H)
+
+            # Determine the greeting based on the UTC hour
+            if (( HOUR >= 5 && HOUR < 12 )); then
+              GREETING="Good morning"
+            elif (( HOUR >= 12 && HOUR < 17 )); then
+              GREETING="Good afternoon"
+            elif (( HOUR >= 17 && HOUR < 22 )); then
+              GREETING="Good evening"
+            else
+              GREETING="Hello" # A friendly fallback for late night hours
+            fi
+
+            # Get the full, human-readable timestamp in UTC
+            TIMESTAMP=$(date -u +'%A, %B %d, %Y at %I:%M:%S %p UTC')
+
+            # Set both values as outputs for the next step
+            echo "greeting=${GREETING}" >> $GITHUB_OUTPUT
+            echo "timestamp=${TIMESTAMP}" >> $GITHUB_OUTPUT
+
+      # The second step now uses the new 'greeting' output variable.
+      - action: add-comment@v1
+        args:
+          comment: |
+            ### {{ steps.get_greeting_and_time.outputs.greeting }} @{{ source.author }}! 👋
+
+            Thank you for the pull request.
+
+            It was received on **{{ steps.get_greeting_and_time.outputs.timestamp }}**. We'll review it shortly.
